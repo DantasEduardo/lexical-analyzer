@@ -1,3 +1,4 @@
+import re
 
 # Constantes
 TESTE   = False
@@ -33,11 +34,8 @@ BRANCOS    = [' ', '\n', '\t', '\v', '\f', '\r']
 # caractere que indica comentário
 COMENTARIO = "#"
 
-
-#------------------------------------------------------------
-def tokeniza(exp):
-    """(str) -> list
-
+def tokeniza(exp:str) -> tuple:
+    """
     Recebe uma string exp representando uma expressão e cria 
     e retorna uma lista com os itens léxicos que formam a
     expressão.
@@ -52,16 +50,27 @@ def tokeniza(exp):
         - um string no caso do item ser um operador ou 
              uma variável ou um abre/fecha parenteses.
 
-    O componente tipo de um token indica a sua categoria
-    (ver definição de constantes acima). 
+    O componente tipo de um token indica a sua categoria. 
 
-        - OPERADOR;
-        - NUMERO; 
-        - VARIAVEL; ou 
-        - PARENTESES
+        - 1 sendo OPERADOR;
+        - 2 sendo NUMERO; 
+        - 3 sendoVARIAVEL; ou 
+        - 4 sendo PARENTESES
 
-    A funçao ignora tuo que esta na exp apos o caractere
+    A funçao ignora tudo que esta na exp apos o caractere
     COMENTARIO (= "#").
     """
-    # escreva o seu código abaixo
     
+    tokens = []
+    for i in re.findall(r'(\d+\.\d+|\d+|[\+\-\*\/\%\&\|\^\~\<\>\=\()]|[a-zA-Z_][a-zA-Z0-9_]*)', exp.split("#")[0]):
+        if re.match(r'[+\-*/=]', i):
+            tokens.append((i, 1))
+        elif re.match(r'\d+(\.(\d+)?)?', i):    
+            tokens.append((float(i), 2))
+        elif re.match(r'[()]', i):    
+            tokens.append((i, 4))
+        elif re.match(r'[a-zA-Z_][a-zA-Z0-9_]*', i):    
+            tokens.append((i, 3))
+
+    return tokens
+

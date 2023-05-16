@@ -1,28 +1,33 @@
-'''
-   NÃO MODIFIQUE ESTE ARQUIVO - autor MAC0122
-
-   Este arquivo contem o programa principal do projeto.
-'''
-
-# tk.tokeniza(), 
 import tokeniza as tk
 
-# categorias e dicionario "categoria: decrição" 
-import operadores as op
+
+# dicionário com o nome das categorias
+DESCRICAO = {
+    # 7 operadores aritmético
+    "^": "operador aritmético para exponenciacao" ,
+    "%": "operador aritmético para resto de divisão",
+    "*": "operador aritmético para multiplicação",
+    "/": "operador aritmético para divisão",
+    "+": "operador aritmético para adição",
+    "-": "operador aritmético para subtração",
+    "!": "operador aritmético 'menos unário'",
+    
+    # atribuicao 
+    "=": "operador para atribuição",
+
+    # parenteses: para expressões infixas */
+    "(": "abre parenteses", 
+    ")": "fecha parenteses", 
+}
 
 PROMPT = "expressão >>> "
 QUIT   = ''
 
 #------------------------------------------------------------
-def main():
-    '''None -> None
-
+def main() -> None:
+    '''
     Programa que lê do teclado uma expressão aritmética 
-    e imprime cada item léxico na expressão.
-
-    Exemplos:
-
-    
+    e imprime cada item léxico na expressão.    
     '''
     print("Entre como uma expressão ou tecle apenas ENTER para encerrar.") 
     expressao = input(PROMPT)
@@ -34,16 +39,13 @@ def main():
 
             # cri string com a descriçao
             if tipo in [tk.OPERADOR, tk.PARENTESES]:
-                descricao = "'%s' : %s" %(item,op.DESCRICAO[item])
+                print(f"'{item}' : {DESCRICAO[item]}")
             elif tipo == tk.VARIAVEL:
-                descricao = "'%s' : nome de variável" %item
+                print(f"'{item}' : nome de variável")
             elif tipo == tk.NUMERO:
-                descricao = "%f : constante float" %item
+                print(f"{item} : constante float")
             else:
-                descricao = "'%s' : categoria desconhecida" %item
-
-            # imprima a descriçao
-            print(descricao)
+                print(f"'{item}' : categoria desconhecida")
 
         # leia próxima expressão    
         expressao = input(PROMPT)        
@@ -51,5 +53,6 @@ def main():
 
 #-------------------------------------------
 # início da execução do programa
-main()
+if __name__ == "__main__":
+    main()
         
