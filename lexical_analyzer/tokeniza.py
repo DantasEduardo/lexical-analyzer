@@ -1,25 +1,5 @@
 import re
 
-# Constantes
-TESTE   = False
-
-# caracteres usados em operadores
-OPERADORES = "%*/+-!^="
-
-# caracteres usados em números inteiros
-DIGITOS = "0123456789"
-
-# ponto decimal
-PONTO = "."
-
-# todos os caracteres usados em um números float
-FLOATS = DIGITOS + PONTO
-
-# caracteres usados em nomes de variáveis
-LETRAS  = "_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-
-# abre e fecha parenteses
-ABRE_FECHA_PARENTESES = "()"
 
 # categorias
 OPERADOR   = 1 # para operadores aritméticos e atribuição
@@ -27,12 +7,6 @@ NUMERO     = 2 # para números: todos são considerados float
 VARIAVEL   = 3 # para variáveis
 PARENTESES = 4 # para '(' e ')
 
-# Whitespace characters: space, newline, horizontal tab,
-# vertical tab, form feed, carriage return
-BRANCOS    = [' ', '\n', '\t', '\v', '\f', '\r']
-
-# caractere que indica comentário
-COMENTARIO = "#"
 
 def tokeniza(exp:str) -> tuple:
     """
@@ -64,13 +38,13 @@ def tokeniza(exp:str) -> tuple:
     tokens = []
     for i in re.findall(r'(\d+\.\d+|\d+|[\+\-\*\/\%\&\|\^\~\<\>\=\()]|[a-zA-Z_][a-zA-Z0-9_]*)', exp.split("#")[0]):
         if re.match(r'[+\-*/=]', i):
-            tokens.append((i, 1))
+            tokens.append((i, OPERADOR))
         elif re.match(r'\d+(\.(\d+)?)?', i):    
-            tokens.append((float(i), 2))
-        elif re.match(r'[()]', i):    
-            tokens.append((i, 4))
+            tokens.append((float(i), NUMERO))
         elif re.match(r'[a-zA-Z_][a-zA-Z0-9_]*', i):    
-            tokens.append((i, 3))
+            tokens.append((i, VARIAVEL))
+        elif re.match(r'[()]', i):    
+            tokens.append((i, PARENTESES))
 
     return tokens
 
