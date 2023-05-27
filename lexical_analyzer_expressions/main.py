@@ -1,4 +1,4 @@
-import tokeniza as tk
+import tokeniza_exp as tk
 
 
 # dicionário com o nome das categorias
@@ -32,7 +32,7 @@ def main() -> None:
     print("Entre como uma expressão ou tecle apenas ENTER para encerrar.") 
     expressao = input(PROMPT)
     while expressao != QUIT:
-        lista_tokens = tk.tokeniza(expressao)
+        lista_tokens = tk.tokeniza_exp(expressao)
         for token in lista_tokens:
             # pegue item e tipo
             item, tipo = token

@@ -8,7 +8,7 @@ VARIAVEL   = 3 # para variáveis
 PARENTESES = 4 # para '(' e ')
 
 
-def tokeniza(exp:str) -> tuple:
+def tokeniza_exp(exp:str) -> tuple:
     """
     Recebe uma string exp representando uma expressão e cria 
     e retorna uma lista com os itens léxicos que formam a
@@ -37,14 +37,13 @@ def tokeniza(exp:str) -> tuple:
     
     tokens = []
     for i in re.findall(r'(\d+\.\d+|\d+|[\+\-\*\/\%\&\|\^\~\<\>\=\()]|[a-zA-Z_][a-zA-Z0-9_]*)', exp.split("#")[0]):
-        if re.match(r'[+\-*/=]', i):
+        if i in r'[+\-*/=]':
             tokens.append((i, OPERADOR))
-        elif re.match(r'\d+(\.(\d+)?)?', i):    
+        elif i in r'\d+(\.(\d+)?)?':    
             tokens.append((float(i), NUMERO))
-        elif re.match(r'[a-zA-Z_][a-zA-Z0-9_]*', i):    
+        elif i in r'[a-zA-Z_][a-zA-Z0-9_]*':    
             tokens.append((i, VARIAVEL))
-        elif re.match(r'[()]', i):    
+        elif i in r'[()]':    
             tokens.append((i, PARENTESES))
 
     return tokens
-
