@@ -1,17 +1,14 @@
-import tokeniza_words as tk
+import src.tokeniza_words as tk
+import src.get_data as get_data
 
 
-#------------------------------------------------------------
-def main(event, context) -> None:
-    tokens = tk.get_feling(event['Text'])
-    print(tokens)
+def main() -> None:
+    infos = {}
+    texts = get_data.read_data("data.json")
+    for key in texts.keys():
+        infos[key] = tk.get_felings(set(texts[key]))
+    
+    return infos
 
-
-#-------------------------------------------
-# início da execução do programa
 if __name__ == "__main__":
-    t = """Deu no @presenterural: estudo mostra que a demanda japonesa por soja convencional para consumo humano poderá ser de 230 mil toneladas em dez anos.
-    """
-    e = {"Text": t}
-    main(e, "context")
-        
+    main()

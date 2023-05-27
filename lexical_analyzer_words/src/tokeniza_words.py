@@ -17,19 +17,21 @@ STOP_WORDS = ["de","a","o","que","e","do","da","em","um","para","com","nao","uma
               "fosse","fossemos","fossem","for","formos","forem","serei","sera","seremos","serao","seria","seriamos","seriam",
               "tenho","tem","temos","tem","tinha","tinhamos","tinham","tive","teve","tivemos","tiveram","tivera","tiveramos",
               "tenha","tenhamos","tenham","tivesse","tivessemos","tivessem","tiver","tivermos","tiverem","terei","tera","teremos"
-              "terao","teria","teriamos","teriam"]
+              "terao","teria","teriamos","teriam","pq"]
 
 GOOD_WORDS = ["promissor","impressionante","exponencial","destacado","florescente","prospero","lucrativo","significativo","notavel","ascensao",
               "surpreendente","encorajador","empolgante","brilhante","solido","favoravel","promovendo","crescimento","estavel","relevante",
-              "positivo","alta","oferta","crescente","aumento","forte","fortes"]
+              "positivo","alta","oferta","crescente","aumento","forte","fortes","melhor","melhores","qualificado","qualificados","qualificada",
+              "qualificadas"]
 
 
 BAD_WORDS = ["volatil","instavel","declinante","desfavoravel","declinio","prejudicial","problematico","arriscado","desafiador","especulativo",
              "manipulado","controverso","desvalorizado","inconstante","sobrecarregado","descontrolado","fragilizado","desaquecido","desorganizado",
-             "vulneravel","conflituoso"]
+             "vulneravel","conflituoso","erro","queda","reducao","reducoes","recuam","pior","piorar","falta","faltava","negativa","negativar",
+             "negativo","cancer","prejudica","prejudicar","prejudicou"]
 
 INTENSE_WORDS = ["muito", "bastante", "absoluto", "absolutamente", "extremamente", "profundo", "profundamente", "esmagadoramente", "esmagador",
-                 "deslumbrante", "formidavel", ]
+                 "deslumbrante", "formidavel","tao"]
 
 # categorias
 NORMAL = 0
@@ -47,6 +49,7 @@ def prep(txt:str) -> list:
 
 def tokeniza_phrase(text:str) -> list:
     text = prep(text)
+    print(text)
     tokens = []
     for i in text:
         if i in GOOD_WORDS:
@@ -61,7 +64,6 @@ def tokeniza_phrase(text:str) -> list:
 
 def get_feling(text:str) -> int:
     tokens = tokeniza_phrase(text)
-    print(tokens)
     tokens = [tk for word, tk in tokens]
 
     qtd_good = tokens.count(GOOD)
@@ -81,3 +83,7 @@ def get_feling(text:str) -> int:
         return 1
     elif qtd_bad > qtd_good:
         return -1
+
+
+def get_felings(text:list) -> list:
+    return [(txt, get_feling(txt)) for txt in text if txt[len("https")] != "https"]
