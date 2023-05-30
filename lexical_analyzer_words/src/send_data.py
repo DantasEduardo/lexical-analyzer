@@ -20,7 +20,7 @@ def upload_data(registers:dict):
         host = 'soy-bean-02211010.mysql.database.azure.com',
         user = 'root02211010',
         database = 'sensor_data',
-        password = 'Urubu100',
+        password = '**********',
         port = "3306")
 
     mycursor = mydb.cursor()
