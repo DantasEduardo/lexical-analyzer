@@ -49,7 +49,6 @@ def prep(txt:str) -> list:
 
 def tokeniza_phrase(text:str) -> list:
     text = prep(text)
-    print(text)
     tokens = []
     for i in text:
         if i in GOOD_WORDS:
@@ -86,4 +85,5 @@ def get_feling(text:str) -> int:
 
 
 def get_felings(text:list) -> list:
-    return [(txt, get_feling(txt)) for txt in text if txt[len("https")] != "https"]
+    return [(prep(txt), get_feling(txt)) for txt in text]
+
